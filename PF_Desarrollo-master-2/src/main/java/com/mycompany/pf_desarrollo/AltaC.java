@@ -14,7 +14,7 @@ public class AltaC extends javax.swing.JFrame {
     /**
      * Creates new form AltaC
      */
-    public AltaC() {
+    public AltaC(int id) {
         initComponents();
         initComponents();
         this.id=id;
@@ -24,9 +24,6 @@ public class AltaC extends javax.swing.JFrame {
         
     }
 
-    AltaC(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,7 +182,7 @@ public class AltaC extends javax.swing.JFrame {
         Menu menu = new Menu(id);
         this.dispose();
         menu.setVisible(true);
-    }
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

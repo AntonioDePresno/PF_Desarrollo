@@ -13,20 +13,23 @@ import javax.swing.JOptionPane;
  */
 public class Cliente extends javax.swing.JFrame {
         int id;
-    boolean Admin;
+        boolean Admin;
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    public Cliente(int id) {
         initComponents();
         this.id=id;
         Conecta();
+        
+        if(!Admin){
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+        }
     }
-
-    Cliente(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Cliente(){
+        
     }
-
     private void Conecta() {
       /*Connection c = null;
       try {
