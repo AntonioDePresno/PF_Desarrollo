@@ -25,9 +25,7 @@ public class Equipo extends javax.swing.JFrame {
         this.id=id;
         Conecta();
         
-        if(Admin){
-            
-        }else{
+        if(!Admin){
             jButton2.setEnabled(false);
             jButton3.setEnabled(false);
         }
