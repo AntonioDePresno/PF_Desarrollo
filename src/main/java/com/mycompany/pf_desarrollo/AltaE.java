@@ -5,6 +5,8 @@
  */
 package com.mycompany.pf_desarrollo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JuanAntonio
@@ -101,9 +103,15 @@ public class AltaE extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setOpaque(false);
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +262,7 @@ public class AltaE extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Menu menu = new Menu();
+        Menu menu = new Menu(id);
         this.dispose();
         menu.setVisible(true);
         
@@ -267,6 +275,40 @@ public class AltaE extends javax.swing.JFrame {
         equipo.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String marca, modelo, serie, fecha, garantia, ubicacion, responsable, mantenimiento, descripcion;
+        
+        marca = jTextField1.getText();
+        modelo = jTextField2.getText();
+        serie = jTextField3.getText();
+        fecha = jTextField4.getText();
+        garantia = jTextField5.getText();
+        ubicacion = jTextField6.getText();
+        responsable = jTextField7.getText();
+        mantenimiento = jTextField8.getText();
+        descripcion = jTextArea1.getText();
+        
+        if (marca.equals("") || modelo.equals("") || serie.equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        }else if (fecha.equals("") || garantia.equals("") || ubicacion.equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        }else if (responsable.equals("") || mantenimiento.equals("") || descripcion.equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        }else{
+            inserta(marca, modelo, serie, fecha, garantia, ubicacion, responsable, mantenimiento, descripcion);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void inserta(String marca, String modelo, String serie, String fecha, String garantia, String ubicacion, 
+            String responsable, String mantenimiento, String descripcion){
+        //se hace el insert a la base de datos
+        
+        Menu menu = new Menu(id);
+        this.dispose();
+        menu.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */

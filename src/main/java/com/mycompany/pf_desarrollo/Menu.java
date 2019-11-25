@@ -20,6 +20,7 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu(int id){
         this.id=id;
+        initComponents();
     }
     
     /**

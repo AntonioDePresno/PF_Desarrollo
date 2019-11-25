@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Equipo extends javax.swing.JFrame {
     int id;
-    boolean Admin;
+    boolean Admin = false;
     /**
      * Creates new form Equipo
      * @param id
@@ -24,6 +24,13 @@ public class Equipo extends javax.swing.JFrame {
         initComponents();
         this.id=id;
         Conecta();
+        
+        if(Admin){
+            
+        }else{
+            jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
+        }
     }
     
    private Equipo(){
@@ -31,19 +38,16 @@ public class Equipo extends javax.swing.JFrame {
    }
 
    private void Conecta() {
-      /*Connection c = null;
+      Connection c = null;
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
             .getConnection("jdbc:postgresql://localhost:5432/a00243504",
-            "a00243504", "p14119597");
-         JOptionPane.showMessageDialog(null, "Conexión exitosa");
+            "a002243504", "p14119597");
       } catch (Exception e) {
          e.printStackTrace();
-         JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos "+e.toString());
-         
-     
-    }*/ 
+         JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos"+e.toString());
+       } 
    }
    
     /**
@@ -131,7 +135,7 @@ public class Equipo extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Menu menu = new Menu();
+        Menu menu = new Menu(id);
         this.dispose();
         menu.setVisible(true);
         
