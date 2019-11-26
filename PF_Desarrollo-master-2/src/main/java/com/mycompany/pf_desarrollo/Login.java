@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author JuanAntonio
  */
 public class Login extends javax.swing.JFrame {
-
+    int id;
     /**
      * Creates new form Login
      */
@@ -109,6 +109,9 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         valida();
+        Menu menu = new Menu(id);
+        this.dispose();
+        menu.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -117,15 +120,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void valida(){
-       String usuario = jTextField1.getText();
-       String pass = jPasswordField1.getPassword().toString();
-       
-       if(usuario.isEmpty()){
-           JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
-           System.out.println(pass);
-       }else{
-           
-       }
+        
        
        
         
