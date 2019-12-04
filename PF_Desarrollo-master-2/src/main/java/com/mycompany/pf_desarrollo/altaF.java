@@ -16,8 +16,6 @@ public class altaF extends javax.swing.JFrame {
      */
     public altaF(int id) {
         initComponents();
-        initComponents();
-        initComponents();
         this.id=id;
     }
 
@@ -57,6 +55,11 @@ public class altaF extends javax.swing.JFrame {
         jLabel4.setText("Limite inferior");
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Atras");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +153,30 @@ public class altaF extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String idcliente, factorana, limiteinfe, limitesup, contacto;
+        
+        idcliente = jTextField1.getText();
+        factorana = jTextField2.getText();
+        limiteinfe = jTextField3.getText();
+        limitesup = jTextField4.getText();
+        
+        if (idcliente.equals("") || factorana.equals("") || limiteinfe.equals("") || limitesup.equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        }else{
+            inserta(idcliente, factorana, limiteinfe, limitesup);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void inserta(String idcliente, String factorana, String limiteinfe, String limitesup){
+        //se hace el insert a la base de datos
+        
+        Menu menu = new Menu(id);
+        this.dispose();
+        menu.setVisible(true);
+    
+    }      
     /**
      * @param args the command line arguments
      */
