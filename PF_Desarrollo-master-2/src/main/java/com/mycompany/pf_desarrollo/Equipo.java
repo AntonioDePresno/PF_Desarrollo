@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Equipo extends javax.swing.JFrame {
     int id;
-    boolean Admin = false;
+    boolean Admin = true;
     /**
      * Creates new form Equipo
      * @param id
@@ -39,12 +39,12 @@ public class Equipo extends javax.swing.JFrame {
       Connection c = null;
       try {
          Class.forName("org.postgresql.Driver");
-         c = DriverManager
-            .getConnection("jdbc:postgresql://lab.anahuac.mx:5432/a00243504",
-            "a00243504", "p14119597");
          /*c = DriverManager
+            .getConnection("jdbc:postgresql://lab.anahuac.mx:5432/a00243504",
+            "a00243504", "p14119597")*/
+         c = DriverManager
             .getConnection("jdbc:postgresql://127.0.0.1:5433/a00243504",
-            "a00243504", "p14119597");*/
+            "a00243504", "p14119597");
       } catch (Exception e) {
          e.printStackTrace();
          JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos"+e.toString());

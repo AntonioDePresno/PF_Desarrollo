@@ -5,6 +5,9 @@
  */
 package com.mycompany.pf_desarrollo;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -135,10 +138,36 @@ public class BajaE extends javax.swing.JFrame {
         int idequipo;
         input = jTextField1.getText();
         
+        Connection c = null;
+        Statement stmt = null;
+        
         if (input.equals("")){
             JOptionPane.showMessageDialog(null, "Porfavor introduzca un id");
         }else{
             idequipo = Integer.parseInt(input);
+         try {
+         Class.forName("org.postgresql.Driver");
+         /*c = DriverManager
+            .getConnection("jdbc:postgresql://lab.anahuac.mx:5432/a00243504",
+            "a00243504", "p14119597")*/
+         c = DriverManager
+            .getConnection("jdbc:postgresql://127.0.0.1:5433/a00243504",
+            "a00243504", "p14119597");
+         c.setAutoCommit(false);
+         stmt=c.createStatement();
+         String sql = "DELETE FROM equipo WHERE clavedelequipo="+idequipo+";";
+         stmt.executeUpdate(sql);
+         stmt.close();
+         c.commit();
+         c.close();
+         
+         JOptionPane.showMessageDialog(null, "Baja exitosa");
+         
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+         JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos"+e.toString());
+       } 
         }
         
         
