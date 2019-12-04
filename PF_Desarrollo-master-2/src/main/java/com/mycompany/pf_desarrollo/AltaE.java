@@ -1,4 +1,4 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -64,6 +64,12 @@ public class AltaE extends javax.swing.JFrame {
         label1.setText("Ingrese los Datos del Equipo");
 
         jLabel1.setText("Marca");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Modelo");
 
@@ -300,6 +306,10 @@ public class AltaE extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void inserta(String marca, String modelo, String serie, String fecha, String garantia, String ubicacion, 
             String responsable, String mantenimiento, String descripcion){
