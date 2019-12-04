@@ -62,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
         jButton5.setText("Edicion de Certificado");
 
         jButton6.setText("Impresion de Certificado");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,6 +119,13 @@ public class Menu extends javax.swing.JFrame {
         Cliente cliente = new Cliente(id);
         cliente.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        ImprimeCert cert = new ImprimeCert(id);
+        this.dispose();
+        cert.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
