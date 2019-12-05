@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.pf_desarrollo;
+import com.mycompany.pf_desarrollo.Menu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Cliente extends javax.swing.JFrame {
         int id;
-        boolean Admin;
+        boolean Admin = true;
     /**
      * Creates new form Cliente
      */
@@ -23,27 +24,27 @@ public class Cliente extends javax.swing.JFrame {
         Conecta();
         
         if(!Admin){
-            jButton2.setEnabled(false);
-            jButton3.setEnabled(false);
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
         }
     }
     private Cliente(){
         
     }
     private void Conecta() {
-      Connection c = null;
+      /*Connection c = null;
       try {
          Class.forName("org.postgresql.Driver");
          c = DriverManager
-            .getConnection("jdbc:postgresql://lab.anahuac.mx:5432/a00243504",
+            .getConnection("jdbc:postgresql://localhost:5432/a00243504",
             "a00243504", "p14119597");
-         /*c = DriverManager
-            .getConnection("jdbc:postgresql://127.0.0.1:5433/a00243504",
-            "a00243504", "p14119597");*/
+         JOptionPane.showMessageDialog(null, "Conexión exitosa");
       } catch (Exception e) {
          e.printStackTrace();
-         JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos"+e.toString());
-       } 
+         JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos "+e.toString());
+         
+     
+    }*/ 
    }
     /**
      * This method is called from within the constructor to initialize the form.

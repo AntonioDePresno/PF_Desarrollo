@@ -14,6 +14,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -177,7 +181,7 @@ public class ImprimeCert extends javax.swing.JFrame {
         tipo = jComboBox1.getSelectedItem().toString();
         cantidad = jTextField3.getText();
         
-        imprime();
+        imprime(lote, tipo,cantidad,idcliente);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -195,48 +199,134 @@ public class ImprimeCert extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
     
-    private void imprime(){
+    private void imprime(String lote, String tipo, String cantidad, String idcliente){
         Document cert = new Document();
+        boolean truco=false;
+        String cliente="";
+        String factor1="",res1="";
+        String factor2="",res2="";
+        String factor3="",res3="";
+        
+        Statement stmt = null;
+        String resultado ="";
+        Connection c = null;
+
+        try{
+            Class.forName("org.postgresql.Driver");
+            c = DriverManager
+                .getConnection("jdbc:postgresql://127.0.0.1:5433/a00243504", "a00243504",
+                "p14119597");
+            c.setAutoCommit(false);
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nombre FROM cliente WHERE id_cliente="+idcliente+";");
+            
+            while(rs.next()){
+                cliente=rs.getString("nombre");
+            }
+            Statement stmt1 = null;
+            stmt1=c.createStatement();
+            ResultSet rs1 = stmt1.executeQuery("SELECT * FROM analisis WHERE lote="+lote+" AND harina='"+tipo+"';");
+            
+            while(rs1.next()){
+                factor1 = rs1.getString("factor1");
+                factor2 = rs1.getString("factor2");
+                factor3 = rs1.getString("factor3");
+                
+                res1 = rs1.getString("resultado1");
+                res2 = rs1.getString("resultado2");
+                res3 = rs1.getString("resultado3");
+            }
+            
+        }catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos"+e.toString());
+            System.exit(0);
+        }
         
         try{
-            PdfWriter writer = PdfWriter.getInstance(cert, new FileOutputStream("Cert.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(cert, new FileOutputStream("Cert_"+cliente+".pdf"));
             cert.open();
             
+            Paragraph Titulo = new Paragraph("Fabricas Harinas Elizondo S.A. de C.V.");
+            Titulo.setAlignment(Element.ALIGN_CENTER);
+            cert.add(Titulo);
             
-            cert.add(new Paragraph("Harinas Anahuac"));
+            Paragraph Cliente = new Paragraph("Cliente: "+cliente);
+            cert.add(Cliente);
+                    
+            Paragraph Lote = new Paragraph("Lote: "+lote);
+            cert.add(Lote);
             
-            cert.add(new Paragraph("Cliente: Nicolas"));
+            Paragraph Tipo = new Paragraph("Tipo de Harina: "+tipo);
+            cert.add(Tipo);
             
-            PdfPTable table = new PdfPTable(3);
+            Paragraph Cantidad = new Paragraph("Cantidad Solicitada: "+cantidad+"KG");
+            cert.add(Cantidad);
+            
+            PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
             table.setSpacingBefore(10f);
             table.setSpacingAfter(10f);
             
-            float[] columnwidths = {1f,1f,1f};
+            float[] columnwidths = {1f,1f};
             table.setWidths(columnwidths);
             
-            PdfPCell celda1 = new PdfPCell(new Paragraph("Características Organolépticas"));
+            PdfPCell celda1 = new PdfPCell(new Paragraph("Factor de Análisis"));
             celda1.setHorizontalAlignment(Element.ALIGN_CENTER);
             
-            PdfPCell celda2 = new PdfPCell(new Paragraph("Características Resultados"));
+            PdfPCell celda2 = new PdfPCell(new Paragraph("Resultados"));
             celda2.setHorizontalAlignment(Element.ALIGN_CENTER);
             
-            PdfPCell celda3 = new PdfPCell(new Paragraph("Resultados"));
+            PdfPCell celda3 = new PdfPCell(new Paragraph(""+factor1));
             celda3.setHorizontalAlignment(Element.ALIGN_CENTER);
             
-            PdfPCell celda4 = new PdfPCell(new Paragraph("Otra celda"));
+            PdfPCell celda4 = new PdfPCell(new Paragraph(""+res1));
             celda4.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celda5 = new PdfPCell(new Paragraph(""+factor2));
+            celda5.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celda6 = new PdfPCell(new Paragraph(""+res2));
+            celda6.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celda7 = new PdfPCell(new Paragraph(""+factor3));
+            celda7.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            PdfPCell celda8 = new PdfPCell(new Paragraph(""+res3));
+            celda8.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             table.addCell(celda1);
             table.addCell(celda2);
             table.addCell(celda3);
             table.addCell(celda4);
-            
+            table.addCell(celda5);
+            table.addCell(celda6);
+            table.addCell(celda7);
+            table.addCell(celda8);
             
             cert.add(table);
             
+            Paragraph Firma = new Paragraph("___________________________________");
+            Firma.setAlignment(Element.ALIGN_RIGHT);
+            cert.add(Firma);
+            
+            Paragraph Responsable = new Paragraph("Responsable");
+            Responsable.setAlignment(Element.ALIGN_RIGHT);
+            cert.add(Responsable);
+            
+            Paragraph Fecha = new Paragraph("México a "+java.time.LocalDate.now());
+            Fecha.setAlignment(Element.ALIGN_BOTTOM);
+            cert.add(Fecha);
+            
             cert.close();
             writer.close();
+            JOptionPane.showMessageDialog(null,"Certificado creado con el nombre Cert_"+cliente);
+            
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            
+            
         }catch(DocumentException e){
             JOptionPane.showMessageDialog(null, "Error al crear el certificado");
         }catch (FileNotFoundException e){
